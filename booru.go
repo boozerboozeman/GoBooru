@@ -61,7 +61,7 @@ func main() {
 		fmt.Println("Downloading:" + waifu[res].ImageUrl)
 		fileUrl := waifu[res].ImageUrl
 		temp := strings.Split(fileUrl, "/")
-		fileName := temp[6]
+		fileName := temp[len(temp)-1]
 		downloadFile(waifu[res].ImageUrl, "./"+fileName)
 	}
 }
