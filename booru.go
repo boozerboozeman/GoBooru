@@ -50,9 +50,11 @@ func downloadFile(url string, path string) error {
 
 func main() {
 	var query string
+	var limit string
 	flag.StringVar(&query, "query", "makise_kurisu", "your tag (danbooru format)")
+	flag.StringVar(&limit, "limit", "1", "the number of picture you want to see")
 	flag.Parse()
-	url := "https://safebooru.donmai.us/posts.json?random=true&tags=" + query + "&rating=safe&limit=10"
+	url := "https://safebooru.donmai.us/posts.json?random=true&tags=" + query + "&rating=safe&limit=" + limit
 	waifu, err := readJSONFromUrl(url)
 	if err != nil {
 		fmt.Println(nil, err)

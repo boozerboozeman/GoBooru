@@ -3,6 +3,8 @@ A simple CLI tool to browse and download random pictures from safebooru. (this i
 
 ## usage
 - `go build booru.go`
-- `./booru --query=your_query`
+- `./booru --query=your_query --limit=1-100`
 
-*defaults to makise_kurisu if no arguments are provided*
+*query defaults to makise_kurisu if no arguments are provided*
+
+*limit defaults to 1 if no arguments are provided*
