@@ -5,7 +5,10 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"io"
 	"net/http"
+	"os"
+	"strings"
 )
 
 type Booru struct {
@@ -30,6 +33,21 @@ func readJSONFromUrl(url string) ([]Booru, error) {
 	return image_url, nil
 }
 
+func downloadFile(url string, path string) error {
+	resp, err := http.Get(url)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+	out, err := os.Create(path)
+	if err != nil {
+		return err
+	}
+	defer out.Close()
+	_, err = io.Copy(out, resp.Body)
+	return err
+}
+
 func main() {
 	var query string
 	flag.StringVar(&query, "query", "makise_kurisu", "your tag (danbooru format)")
@@ -40,6 +58,10 @@ func main() {
 		fmt.Println(nil, err)
 	}
 	for res := range waifu {
-		fmt.Println(waifu[res].ImageUrl)
+		fmt.Println("Downloading:" + waifu[res].ImageUrl)
+		fileUrl := waifu[res].ImageUrl
+		temp := strings.Split(fileUrl, "/")
+		fileName := temp[6]
+		downloadFile(waifu[res].ImageUrl, "./"+fileName)
 	}
 }
