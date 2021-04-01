@@ -57,7 +57,7 @@ func main() {
 	url := "https://safebooru.donmai.us/posts.json?random=true&tags=" + query + "&rating=safe&limit=" + limit
 	waifu, err := readJSONFromUrl(url)
 	if err != nil {
-		fmt.Println(nil, err)
+		fmt.Println(err)
 	}
 	for res := range waifu {
 		fmt.Println("Downloading:" + waifu[res].ImageUrl)
